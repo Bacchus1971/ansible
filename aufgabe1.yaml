@@ -1,0 +1,10 @@
+---
+- name: Mein erstes Playbook
+  hosts: all,!redhat
+  tasks:
+    - name: Create directory /home/tux/foo
+      ansible.builtin.file:
+        path: /home/tux/foo
+        state: directory
+        owner: tux
+        mode: "0755"

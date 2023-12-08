@@ -1,0 +1,16 @@
+---
+- name: Include the correct variable file
+  ansible.legacy.include_vars: "{{ ansible_os_family }}.yaml"
+  tags: [ vhost ]
+- name: Include package.yaml
+  ansible.legacy.include_tasks: package.yaml
+- name: Include service.yaml
+  ansible.legacy.include_tasks: service.yaml
+- name: Include vhosts.yaml
+  ansible.legacy.include_tasks:
+    file: vhosts.yaml
+    apply:  # Hiermit werden die Tags vererbt statt sie jedem task händisch 
+            # zuzuweisen - Geschmacksache ;)
+      tags: [ vhost ]
+  tags: [ vhost ]
+  loop: "{{ apache_vhosts }}"

@@ -1,0 +1,25 @@
+---
+- name: Look for a file
+  hosts: suse2-0
+  become: true
+  tasks:
+    - name: Check if file is present
+      ansible.builtin.stat:
+        path: /root/example/stat.txt
+      register: stat_result
+
+    - name: Show the whole result
+      ansible.builtin.debug:
+        var: stat_result
+
+    - name: Show message if file is not present
+      ansible.builtin.debug:
+        msg: "The file /root/example/stat.txt doesn't exist!"
+      when: not stat_result.stat.exists
+
+    - name: Create a symbolic link if file exists
+      ansible.builtin.file:
+        src: /root/example/stat.txt
+        dest: /root/stat.txt
+        state: link
+      when: stat_result.stat.exists

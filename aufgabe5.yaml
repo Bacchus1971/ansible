@@ -1,0 +1,15 @@
+---
+- name: Package with when
+  hosts: all
+  become: true
+  tasks:
+    - name: Install git
+      ansible.builtin.package:
+        name: git
+        state: present
+      when: ansible_hostname == "ubuntu1-0" or ansible_hostname == "suse2-0"
+    - name: Install curl
+      ansible.builtin.package:
+        name: curl
+        state: present
+      when: ansible_os_family != "Suse" and ansible_os_family != "Debian"

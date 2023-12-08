@@ -1,0 +1,17 @@
+---
+- name: Jinja Aufgabe mit Conditional
+  hosts: suse1-0
+  vars:
+    value1: 5
+    value2: 'irgendwas beliebiges'
+  tasks:
+    - name: Task for first condition
+      ansible.builtin.debug:
+        msg: "{{ value1 }}"
+      when: 
+        - value1 is defined 
+        - value1 is not gt 4
+    - name: Task for second condition
+      ansible.builtin.debug:
+        msg: "{{ value2 }}"
+      when: value1 is not defined or value1 is gt 4

@@ -1,0 +1,12 @@
+---
+- name: Jinja für join
+  hosts: redhat1-0
+  tasks:
+    - name: Get the info
+      ansible.builtin.command:
+        cmd: cat /etc/filesystems
+      register: command_res
+
+    - name: Make one string from the list
+      ansible.builtin.debug:
+        msg: "{{ command_res.stdout_lines | join(', ') }}"

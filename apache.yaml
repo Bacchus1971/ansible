@@ -1,0 +1,9 @@
+---
+- name: Deploy webservers
+  hosts: webserver
+  strategy: host_pinned
+  serial: 1
+  roles:
+    - role: apache2_role
+      become: true
+      apache2_package_state: latest

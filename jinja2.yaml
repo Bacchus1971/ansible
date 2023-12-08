@@ -1,0 +1,7 @@
+---
+- name: IP via facts holen
+  hosts: redhat2-0
+  tasks:
+    - name: Get the IP
+      ansible.builtin.debug:
+        msg: "Ip des hosts: {{ ansible_eth0.ipv4.address }}"

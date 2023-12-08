@@ -1,0 +1,38 @@
+---
+- name: Create users and corresponding directories
+  hosts: all
+  become: true
+  vars:
+    count_dir: 2
+    users:
+      - tim
+      - tom
+      - marcel
+  tasks:
+    - name: Create the user
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ users }}"
+
+    - name: Create the directory
+      ansible.builtin.file:
+        path: "/root/{{ item }}"
+        state: directory
+        owner: root
+        mode: "0700"
+      loop: "{{ users }}"
+    - name: Create a count variable
+      ansible.builtin.command:
+        cmd: "seq 1 20"
+      register: counter
+    - name: Show result from last task
+      ansible.builtin.debug:
+        var: "counter"
+    - name: Create numbered dirs
+      ansible.builtin.file:
+        path: "/tmp/dir{{ item }}"
+        state: directory
+        owner: root
+        mode: "0755"
+      loop: "{{ counter.stdout_lines }}"

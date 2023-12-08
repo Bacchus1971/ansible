@@ -1,0 +1,10 @@
+---
+- name: Start the relevant service
+  hosts: suse
+  become: true
+  tasks:
+    - name: Start services in a loop
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+      loop: "{{ services }}"

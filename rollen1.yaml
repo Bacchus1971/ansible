@@ -1,0 +1,39 @@
+---
+- name: Standard playbook for generating all dirs and files for a specific role
+  hosts: localhost
+  vars:
+    roledir: "/home/tux/ansible/roles"
+    rolename: "apache2_role"
+    directories:
+      - tasks
+      - vars
+      - defaults
+      - files
+      - templates
+      - meta
+      - handlers
+  tasks:
+    - name: Create the subdirs
+      ansible.builtin.file:
+        path: "{{ roledir }}/{{ rolename }}/{{ item }}"
+        state: directory
+        owner: tux
+        mode: "0755"
+      loop: "{{ directories }}"
+
+    - name: Create main.yaml where needed
+      ansible.builtin.file:
+        path: "{{ roledir }}/{{ rolename }}/{{ item }}/main.yaml"
+        state: touch
+        owner: tux
+        mode: "0644"
+      loop: "{{ directories }}"
+      when: item in ['tasks', 'vars', 'defaults', 'meta', 'handlers']
+
+    - name: Fill in the '---'
+      ansible.builtin.lineinfile:
+        path: "{{ roledir }}/{{ rolename }}/{{ item }}/main.yaml"
+        state: present
+        line: "---"
+      loop: "{{ directories }}"
+      when: item in ['tasks', 'vars', 'defaults', 'meta', 'handlers']

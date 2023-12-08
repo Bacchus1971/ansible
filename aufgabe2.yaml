@@ -1,0 +1,23 @@
+---
+- name: Playbook mit mehreren Tasks
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure user msp
+      ansible.builtin.user:
+        name: msp
+        state: present
+
+    - name: Create directory /home/msp/foo
+      ansible.builtin.file:
+        path: /home/msp/foo
+        state: directory
+        owner: msp
+        mode: "0755"
+
+    - name: Copy the inventory
+      ansible.builtin.copy:
+        src: /home/tux/ansible/inventory
+        dest: /home/msp/foo
+        owner: msp
+        mode: "0644"

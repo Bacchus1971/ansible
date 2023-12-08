@@ -1,0 +1,9 @@
+---
+- name: Jinja Übung 3
+  hosts: webserver
+  become: true
+  tasks:
+    - name: Simple templating
+      ansible.builtin.template:
+        src: ./jinjalist.j2
+        dest: /root/jinjalist.txt

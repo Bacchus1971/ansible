@@ -1,0 +1,5 @@
+---
+- name: Start the services
+  ansible.builtin.service:
+    name: "{{ apache2_package }}"
+    state: started

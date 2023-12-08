@@ -1,0 +1,12 @@
+---
+- name: Create the vhost definitions from template
+  ansible.builtin.template:
+    src: vhost.conf.j2
+    dest: "{{ apache_vhost_dir }}/{{ item.name }}.conf"
+    mode: "0644"
+
+- name: Create the docroot directories
+  ansible.builtin.file:
+    dest: "{{ item['docroot'] }}"
+    state: directory
+  notify: Restart webserver

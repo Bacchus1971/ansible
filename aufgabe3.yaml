@@ -1,0 +1,11 @@
+---
+- name: Test für den Umgang mit Variablen
+  hosts: ubuntu1-0
+  vars:
+    radio: 'true'
+    tv: 'false'
+    books: 'verytrue :)'
+  tasks:
+    - name: Print out the variables
+      ansible.builtin.debug:
+        msg: "Affinity to tv: {{ tv }}, to radio: {{ radio }} and to books: {{ books }}."

@@ -1,0 +1,17 @@
+---
+apache2_package_state: latest
+jinjalist:
+  - irgendwas
+  - ist
+  - immer
+  - irgendwo
+  - los!
+apache_vhosts:
+  - name: tholg.vi
+    docroot: '/var/www/tholg.vi'
+  - name: tlrz.nano
+    docroot: '/var/www/tlrz.nano'
+  - name: b1.systems
+    docroot: '/opt/web/b1'
+  - name: msp.org
+    docroot: '/var/srv/msp'

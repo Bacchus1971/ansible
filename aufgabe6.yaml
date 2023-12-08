@@ -1,0 +1,28 @@
+---
+- name: Webserver Installation
+  hosts: webserver
+  become: true
+  vars:
+    webserver_suse: apache2
+    webserver_redhat: httpd
+  tasks:
+    - name: Install webserver on the suse machines
+      ansible.builtin.package:
+        name: "{{ webserver_suse }}"
+        state: present
+      when: ansible_os_family == "Suse"
+    - name: Install webserver on the redhat machines
+      ansible.builtin.package:
+        name: "{{ webserver_redhat }}"
+        state: present
+      when: ansible_os_family == "RedHat"
+    - name: Start the service on suse
+      ansible.builtin.service:
+        name: "{{ webserver_suse }}"
+        state: started
+      when: ansible_os_family == "Suse"
+    - name: Start the service on redhat
+      ansible.builtin.service:
+        name: "{{ webserver_redhat }}"
+        state: started
+      when: ansible_os_family == "RedHat"

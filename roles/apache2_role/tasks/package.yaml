@@ -1,0 +1,6 @@
+---
+- name: Install the apache package
+  ansible.builtin.package:
+    name: "{{ apache2_package }}"
+    state: "{{ apache2_package_state }}"
+  notify: Restart webserver

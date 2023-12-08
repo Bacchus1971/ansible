@@ -1,0 +1,10 @@
+---
+- name: Show some magic variables
+  hosts: redhat1-0
+  tasks:
+    - name: Show the hostvars for suse1-0
+      ansible.builtin.debug:
+        msg: "{{ hostvars['ubuntu1-0']['group_names'] }}"
+    - name: Show some more...
+      ansible.builtin.debug:
+        var: hostvars['ubuntu1-0']

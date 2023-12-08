@@ -1,0 +1,7 @@
+---
+- name: Erster Versuch mit jinja
+  hosts: redhat2-0
+  tasks:
+    - name: Show 2 Values
+      ansible.builtin.debug:
+        msg: "Dritter Eintrag: {{ my_var.2 }}, fünfter Eintrag {{ my_var[4] }}"

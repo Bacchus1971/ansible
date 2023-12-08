@@ -1,0 +1,7 @@
+---
+- name: Include the correct variable file
+  ansible.legacy.include_vars: "{{ ansible_os_family }}.yaml"
+- name: Restart webserver
+  ansible.builtin.service:
+    name: "{{ apache2_package }}"
+    state: restarted

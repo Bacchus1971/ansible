@@ -1,0 +1,10 @@
+---
+- name: The name of the game
+  hosts: all
+  tasks:
+    - name: Create File from template
+      ansible.builtin.template:
+        src: ./jinjaif.j2
+        dest: /home/tux/jinja.txt
+        owner: tux
+        mode: "0644"

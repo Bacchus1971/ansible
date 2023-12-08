@@ -1,0 +1,16 @@
+---
+- name: Test the behaviour of retries
+  hosts: suse1-0
+  tasks:
+    - name: get w file from a wrong link
+      ansible.builtin.get_url:
+        url: https://github.com/irgendwas.zip
+        dest: /tmp/muell.zip
+      register: download
+      until: download.failed == false
+      delay: 1
+      retries: 5
+      failed_when: download.attempts is lt 6
+    - name: Show the registered variable
+      ansible.builtin.debug:
+        var: download

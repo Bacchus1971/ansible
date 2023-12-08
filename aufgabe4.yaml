@@ -1,0 +1,13 @@
+---
+- name: Add a repo
+  hosts: ubuntu2-0
+  become: true
+  tasks:
+    - name: Ensure ppa repo is present
+      ansible.builtin.apt_repository:
+        repo: ppa:ginggs/testing
+        state: present
+      register: ppa_register
+    - name: Show the info
+      ansible.builtin.debug:
+        msg: "The repo {{ ppa_register.repo }} is in state {{ ppa_register.state }}."

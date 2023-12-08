@@ -1,0 +1,9 @@
+{% if ansible_os_family == "Debian" %}
+Debian and GNU aure just for you!
+{% elif ansible_os_family == "RedHat" %}
+Look at my faboulus Fedora :)
+{% elif ansible_os_family == "Suse" %}
+Do you see the CHAMELEON?
+{% else %}
+Did you look for the Perl camel?
+{% endif %}
